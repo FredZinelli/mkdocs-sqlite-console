@@ -143,7 +143,6 @@ class Counter:
         return a default message.
         """
         docs = self.config["docs_dir"]
-        path = rel_path     # default
 
         candidates_uris_srcs = [
             f"{ docs }/{ Path(page.file.src_uri).parent.as_posix() }",      # Relative to current page
@@ -164,7 +163,7 @@ class Counter:
                     content = f.read().replace('\n','')
             return True, content, path
 
-        return False, f"{ header } { rel_path } introuvable.", path
+        return False, f"{ header } { rel_path } introuvable.", rel_path
 
     def register_macro_content(self, html_code):
         """
