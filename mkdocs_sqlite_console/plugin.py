@@ -160,7 +160,7 @@ class Counter:
                 content = '_dummy'
             else:
                 with open(path, 'r', encoding='utf-8') as f:
-                    content = f.read().replace('\n','')
+                    content = f.read()
             return True, content, path
 
         return False, f"{ header } { rel_path } introuvable.", rel_path
