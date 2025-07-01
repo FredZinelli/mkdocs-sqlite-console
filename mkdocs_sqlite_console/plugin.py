@@ -289,7 +289,11 @@ class SQLiteConsole(BasePlugin):
 
         # Mutate the page content with all the required logistic if any:
         if sql_scripts:
-            page.content = sql_scripts + page.content
+            page.content = f"""\
+{ sql_scripts }
+{ page.content }
+<script src="{ base_url }/js/material-tabbed-fix.js"></script>
+"""
 
     def counter_for(self, page, *, set_counter: Counter = None) -> Optional[Counter]:
         key = page and page.url
