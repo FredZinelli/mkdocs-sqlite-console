@@ -12,8 +12,6 @@ from mkdocs.config.defaults import MkDocsConfig
 
 BASE_PATH = os.path.dirname(os.path.realpath(__file__))
 
-LIBS_PATH = BASE_PATH + "/libs/"
-
 CSS_PATH = BASE_PATH + "/css/"
 
 JS_PATH = BASE_PATH + "/js/"
