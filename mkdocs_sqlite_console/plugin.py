@@ -5,7 +5,7 @@ from typing import Optional, Tuple
 
 from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
-from mkdocs.structure.files import File
+from mkdocs.structure.files import File, Files
 from mkdocs.structure.pages import Page
 from mkdocs.config.defaults import MkDocsConfig
 
@@ -220,15 +220,12 @@ class SQLiteConsole(BasePlugin):
 
         return config
 
-    def on_files(self, files, config):
-        files.append(
-            File("sqlite_ide.css", CSS_PATH, config["site_dir"] + "/css/", False)
-        )
-        files.append(File("sqlite_ide.js", JS_PATH, config["site_dir"] + "/js/", False))
-        files.append(
-            File("worker.sql-wasm.js", JS_PATH, config["site_dir"] + "/js/", False)
-        )
-        files.append(File("sql-wasm.wasm", JS_PATH, config["site_dir"] + "/js/", False))
+    def on_files(self, files:Files, config):
+        for folder in "css js".split():
+            for file in (Path(BASE_PATH) / folder).iterdir():
+                files.append(
+                    File(file.name, file.parent, config["site_dir"] + f"/{ folder }/", False)
+                )
         return files
 
     def on_pre_page(self, page, config, files):
