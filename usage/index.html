@@ -815,7 +815,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css">
 <link rel="stylesheet" href="https://epithumia.github.io/mkdocs-sqlite-console//css/sqlite_ide.css">
 <script>sqljs_base_path="https://epithumia.github.io/mkdocs-sqlite-console/"</script>
-<script>var bdd1 = new Worker(sqljs_base_path + "/js/worker.sql-wasm.js");</script><h1 id="utilisation">Utilisation</h1>
+<script>var bdd1 = new Worker(sqljs_base_path + "/js/worker.sql-wasm.js");</script>
+<h1 id="utilisation">Utilisation</h1>
 <h2 id="activer-le-plugin">Activer le plugin</h2>
 <p>Ajouter dans votre fichier <code>mkdocs.yml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
@@ -921,7 +922,7 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide2").then(() => {
     const ide = document.querySelector("div#ide2");
-    load(ide, 'https:/epithumia.github.io/mkdocs-sqlite-console/bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
+    load(ide, 'https://epithumia.github.io/mkdocs-sqlite-console//bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
 }).catch(() => {});
 </script>
 <h4 id="cacher-lide">Cacher l'IDE</h4>
@@ -943,7 +944,7 @@ SELECT COUNT(*) FROM employees;
 <script>
   onElementLoaded("div#ide3").then(() => {
     const ide = document.querySelector("div#ide3");
-    load(ide, 'https:/epithumia.github.io/mkdocs-sqlite-console/bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
+    load(ide, 'https://epithumia.github.io/mkdocs-sqlite-console//bases/test.db', '', 'SELECT *\nFROM employees;\n\nSELECT COUNT(*) FROM employees;\n', );
 }).catch(() => {});
 </script>
 <div class="admonition warning">
@@ -1123,7 +1124,7 @@ chargée avec la syntaxe suivante :</p>
 <div id="ide8" >
 <label for='sqlcommands'>Erreur fichier base manquant</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">-- Fichier de base 'bases/basem.db' introuvable</textarea>
+<textarea id="sqlcommands" class="sqlcommands">-- Fichier de base bases/basem.db introuvable.</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -1139,7 +1140,7 @@ chargée avec la syntaxe suivante :</p>
 <div id="ide9" >
 <label for='sqlcommands'>Erreur fichier sql manquant</label>
 <br>
-<textarea id="sqlcommands" class="sqlcommands">-- Fichier d'initialisation 'sql/initm.sql' introuvable</textarea>
+<textarea id="sqlcommands" class="sqlcommands">-- Fichier d\'initialisation sql/initm.sql introuvable.</textarea>
 <button id="execute" class="sqlbutton execute">Exécuter</button>
 <div id="error" class="sqlerror"></div>
 <pre id="output" class="sqloutput"></pre>
@@ -1150,6 +1151,8 @@ chargée avec la syntaxe suivante :</p>
     load(ide, '/', '', '', );
 }).catch(() => {});
 </script>
+
+<script src="https://epithumia.github.io/mkdocs-sqlite-console//js/material-tabbed-fix.js"></script>
 
 
 
