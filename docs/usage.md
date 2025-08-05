@@ -68,7 +68,7 @@ On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramè
 
 !!! warning "Attention"
     - le titre *doit* être entre guillemets
-    - les chemins vers les fichiers sont relatifs à la racine du site
+    - les chemins vers les fichiers sont relatifs à la racine du site, ou bien relatifs au dossier contenant la page markdown en cours (v2.0^+^).
     - les chemins ne peuvent pas contenir d'espace
     - les options base et init sont mutuellement exclusives ; l'option base est prioritaire.
 
@@ -216,12 +216,14 @@ Par rapport à l'utilisation normale du plugin, il faut :
     Par exemple, l'appel :
 
     ```markdown
-    {{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }}
+    {{ sqlide(titre="...", init="sql/init1.sql", sql="sql/code.sql", autoexec=1) }}
     ```
 
     ...devait alors s'écrire :
 
-    `{!{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }!}`
+    ```markdown
+    {!{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" autoexec }!}
+    ```
 
 ### Activation
 
