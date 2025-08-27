@@ -874,7 +874,7 @@ fichier <code>mkdocs.yml</code> une ligne du type</p>
 <p class="admonition-title">Attention</p>
 <ul>
 <li>le titre <em>doit</em> être entre guillemets</li>
-<li>les chemins vers les fichiers sont relatifs à la racine du site</li>
+<li>les chemins vers les fichiers sont relatifs à la racine du site, ou bien relatifs au dossier contenant la page markdown en cours (v2.0^+^).</li>
 <li>les chemins ne peuvent pas contenir d'espace</li>
 <li>les options base et init sont mutuellement exclusives ; l'option base est prioritaire.</li>
 </ul>
@@ -1096,10 +1096,11 @@ chargée avec la syntaxe suivante :</p>
 <div class="highlight"><pre><span></span><code>{!{ sqlide paramètres }!}
 </code></pre></div>
 <p>Par exemple, l'appel :</p>
-<div class="highlight"><pre><span></span><code>{{ sqlide titre=&quot;...&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; }}
+<div class="highlight"><pre><span></span><code>{{ sqlide(titre=&quot;...&quot;, init=&quot;sql/init1.sql&quot;, sql=&quot;sql/code.sql&quot;, autoexec=1) }}
 </code></pre></div>
 <p>...devait alors s'écrire :</p>
-<p><code>{!{ sqlide titre="..." init="sql/init1.sql" sql="sql/code.sql" }!}</code></p>
+<div class="highlight"><pre><span></span><code>{!{ sqlide titre=&quot;...&quot; init=&quot;sql/init1.sql&quot; sql=&quot;sql/code.sql&quot; autoexec }!}
+</code></pre></div>
 </details>
 <h3 id="activation">Activation</h3>
 <h4 id="pyodide-mkdocs-theme"><code>Pyodide-MkDocs-Theme</code></h4>
