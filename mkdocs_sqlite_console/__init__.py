@@ -1,3 +1,3 @@
 from .plugin import SQLiteConsole
 
-VERSION = "2.0.2"
+VERSION = "2.0.3"
