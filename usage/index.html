@@ -860,10 +860,12 @@ fichier <code>mkdocs.yml</code> une ligne du type</p>
 <p>On peut afficher une console/IDE SQLite grâce à la commande <code>{{ sqlide paramètres }}</code>. Cette commande accepte quatre paramètres, tous optionnels :</p>
 <ul>
 <li>un <code>titre</code> : par exemple <code>titre="Exercice 1"</code>. Par défaut, le titre est "sql"</li>
-<li>un chemin vers un script SQL d'initialisation, <code>init</code> : par exemple <code>init=sql/init.md</code></li>
-<li>un chemin vers une <code>base</code> SQLite : par exemple <code>bases/test.db</code></li>
 <li>un chemin vers un fichier de code <code>sql</code> pré-saisi dans l'IDE : par exemple <code>sql="sql/code.sql"</code></li>
+<li>un nom <code>espace</code>, qui permet de mettre la même base de données <a href="#base-partagee-entre-plusieurs-consoles">en commun avec plusieurs ides</a>.</li>
+<li>un chemin vers un script SQL d'initialisation, <code>init</code> : par exemple <code>init=sql/init.sql</code></li>
+<li>un chemin vers une <code>base</code> SQLite : par exemple <code>bases/test.db</code></li>
 <li>si le mot clef <code>autoexec</code> est présent, alors le contenu de code sera exécuté comme si l'utilisateur avait cliqué le bouton</li>
+<li>si le mot clef <code>hide</code> est présent, l'élément sera <a href="#cacher-lide">masqué dans la page</a></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Astuce</p>
@@ -1053,7 +1055,7 @@ SELECT COUNT(*) FROM employees;
 <li>Ajouter les parenthèses autour des arguments,</li>
 <li>Ajouter des virgules entre les arguments,</li>
 <li>Les guillemets autour des valeurs des arguments sont alors indispensables.</li>
-<li>Les arguments passés sous forme de chaînes de caractères seule, dans la syntaxe originale (<code>autoexec</code>, <code>hide</code>), doivent être passés sous forme de booléens. On peut aussi utiliser des entiers pour raccourcir les déclaration : <code>0</code> ou <code>1</code>.</li>
+<li>Les arguments passés sous forme de chaînes de caractères seules dans la syntaxe originale (<code>autoexec</code>, <code>hide</code>) doivent être passés sous forme de booléens. On peut aussi utiliser des entiers pour raccourcir les déclarations : <code>0</code> ou <code>1</code>.</li>
 </ul>
 <details class="help">
 <summary>Signature exacte de la macro</summary>
@@ -1207,6 +1209,10 @@ chargée avec la syntaxe suivante :</p>
     
     
       <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../extras/tablesort.js"></script>
       
     
   </body>
