@@ -40,29 +40,24 @@ SKELETON = """
 MACROS_TEMPLATE = "MKDOCS_SQLITE_CONSOLE_IDE_{}"
 
 
-
-
-
-
-
 class Counter:
 
     def __init__(self, config):
-        self.ROOT_URI = Path(config['docs_dir']).as_posix()
+        self.ROOT_URI = Path(config["docs_dir"]).as_posix()
         self.count = 0
         self.config: MkDocsConfig = config
         self.spaces = {}
         self.macros_contents = {}
         self.worker_inits = []
 
-    def insert_ide(self, page:Page):
+    def insert_ide(self, page: Page):
         def wrapped(matches):
 
             regex_titre = r".*?titre\s*=\s*\"(.*?)\""
-            regex_init = ARG_PATTERN_TEMPLATE.format('init')
-            regex_base = ARG_PATTERN_TEMPLATE.format('base')
-            regex_sql = ARG_PATTERN_TEMPLATE.format('sql')
-            regex_space = ARG_PATTERN_TEMPLATE.format('espace')
+            regex_init = ARG_PATTERN_TEMPLATE.format("init")
+            regex_base = ARG_PATTERN_TEMPLATE.format("base")
+            regex_sql = ARG_PATTERN_TEMPLATE.format("sql")
+            regex_space = ARG_PATTERN_TEMPLATE.format("espace")
 
             params = str(matches.groups(0)[0])
 
@@ -74,10 +69,15 @@ class Counter:
             sql = "".join(re.findall(regex_sql, params))
             space = "".join(re.findall(regex_space, params))
 
-            return self.build_sql(titre, autoexec, hide, init, base, sql, space, page=page)
+            return self.build_sql(
+                titre, autoexec, hide, init, base, sql, space, page=page
+            )
+
         return wrapped
 
-    def build_sql(self, titre, autoexec, hide, init, base, sql, space, *, page:Page=None):
+    def build_sql(
+        self, titre, autoexec, hide, init, base, sql, space, *, page: Page = None
+    ):
         self.count += 1
         worker = ""
 
@@ -108,15 +108,23 @@ class Counter:
                 autoexec = sql.replace("\n", "\\n").replace("'", "\\'")
 
         if init != "":
-            ok, init, _ = self.get_relative_file(page, init, "-- Fichier d'initialisation")
+            ok, init, _ = self.get_relative_file(
+                page, init, "-- Fichier d'initialisation"
+            )
             init = init.replace("\n", "\\n").replace("'", "\\'")
             if not ok:
                 sql, init = init, ""
 
         if base != "/":
-            ok, nope, resolved_path = self.get_relative_file(page, base, "-- Fichier de base")
+            ok, nope, resolved_path = self.get_relative_file(
+                page, base, "-- Fichier de base"
+            )
             if ok:
-                base = Path(resolved_path).as_posix().replace(self.ROOT_URI, self.config['site_url'])
+                base = (
+                    Path(resolved_path)
+                    .as_posix()
+                    .replace(self.ROOT_URI, self.config["site_url"])
+                )
             else:
                 sql = nope
                 init = ""
@@ -131,11 +139,13 @@ class Counter:
             init=init,
             autoexec=autoexec,
             worker=worker,
-            #workerinit=workerinit,      # Not inserted here anymore (version > 2.0.0)
+            # workerinit=workerinit,      # Not inserted here anymore (version > 2.0.0)
         )
         return ide_html
 
-    def get_relative_file(self, page:Page, rel_path:str, header:str) -> Tuple[bool, str, str]:
+    def get_relative_file(
+        self, page: Page, rel_path: str, header: str
+    ) -> Tuple[bool, str, str]:
         """
         Extract a file relative to the current markdown file or to the docs dir, or
         return a default message.
@@ -143,8 +153,8 @@ class Counter:
         docs = self.config["docs_dir"]
 
         candidates_uris_srcs = [
-            f"{ docs }/{ Path(page.file.src_uri).parent.as_posix() }",      # Relative to current page
-            docs,                                                           # Relative to docs_dir
+            f"{ docs }/{ Path(page.file.src_uri).parent.as_posix() }",  # Relative to current page
+            docs,  # Relative to docs_dir
         ]
         for cnd in candidates_uris_srcs:
             path_uri = f"{ cnd }/{ rel_path }"
@@ -153,11 +163,11 @@ class Counter:
             if not os.path.isfile(path):
                 continue
 
-            if path.endswith('.db'):
+            if path.endswith(".db"):
                 # .db are not readable with utf-8, but no need of their content so no problem.
-                content = '_dummy'
+                content = "_dummy"
             else:
-                with open(path, 'r', encoding='utf-8') as f:
+                with open(path, "r", encoding="utf-8") as f:
                     content = f.read()
             return True, content, path
 
@@ -175,10 +185,10 @@ class Counter:
         return token
 
     def insert_macro_contents(self, html):
-        """ To do _before_ resolving the older syntaxes. """
+        """To do _before_ resolving the older syntaxes."""
         if self.count:
             html = re.sub(
-                MACROS_TEMPLATE.format('\\d+'),
+                MACROS_TEMPLATE.format("\\d+"),
                 lambda m: self.macros_contents[m[0]],
                 html,
             )
@@ -187,7 +197,6 @@ class Counter:
     def get_worker_inits(self):
         workers = " ".join(self.worker_inits)
         return f"<script>{ workers }</script>"
-
 
 
 # noinspection PyUnusedLocal
@@ -218,11 +227,16 @@ class SQLiteConsole(BasePlugin):
 
         return config
 
-    def on_files(self, files:Files, config):
+    def on_files(self, files: Files, config):
         for folder in "css js".split():
             for file in (Path(BASE_PATH) / folder).iterdir():
                 files.append(
-                    File(file.name, file.parent, config["site_dir"] + f"/{ folder }/", False)
+                    File(
+                        file.name,
+                        file.parent,
+                        config["site_dir"] + f"/{ folder }/",
+                        False,
+                    )
                 )
         return files
 
@@ -247,11 +261,13 @@ class SQLiteConsole(BasePlugin):
             regex = r"(?:^|\n)\s*?<p>\s*?{{\s*?sqlide.*?\s+?(.*?)\s*?}}</p>(?:\n|$)"
 
         if c:
-            html = re.sub(regex, c.insert_ide(page), html, flags=re.MULTILINE | re.DOTALL)
+            html = re.sub(
+                regex, c.insert_ide(page), html, flags=re.MULTILINE | re.DOTALL
+            )
 
         return html
 
-    def on_page_context(self, ctx, page:Page, config, **kwargs):
+    def on_page_context(self, ctx, page: Page, config, **kwargs):
 
         c = self.counter_for(page)
         sql_scripts = ""
@@ -320,5 +336,7 @@ class SQLiteConsole(BasePlugin):
         # (actual default values are handled in Counter.build_sql)
         page = self.macros.page
         c = self.counter_for(page)
-        html_code = c.build_sql(titre, autoexec, hide, init, base, sql, espace, page=page)
+        html_code = c.build_sql(
+            titre, autoexec, hide, init, base, sql, espace, page=page
+        )
         return c.register_macro_content(html_code)
