@@ -1,5 +1,12 @@
 // noinspection SqlNoDataSourceInspection
 
+class SQLIDE {
+    constructor(ide, base = '', init = '', run = '', espace = '') {
+        console.log("SQLIDE", ide, base, init, run, espace);
+        load(ide, base, init, run, espace);
+    }
+}
+
 function load(ide, base = '', init = '', run = '', espace = '') {
     var execBtn = ide.querySelector("button.execute");
     var outputElm = ide.querySelector('pre.sqloutput');
