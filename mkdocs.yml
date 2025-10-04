@@ -17,6 +17,7 @@ nav:
         - 'Historique des versions': 'notes-de-version.md'
 
     # - Bac à sable: 'essai/bac_a_sable.md'   # testing purpose
+    # - "Base+init": 'essai/base_init.md'     # testing purpose
 
 exclude_docs: |   # Désactiver tout le bloc pour activer dans la nav
     essai/**
