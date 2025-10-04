@@ -19,7 +19,8 @@ JS_PATH = BASE_PATH + "/js/"
 ARG_PATTERN_TEMPLATE = "{}\\s*=\\s*[\"']?([^\\s\"']*)"
 
 
-# "{workerinit}" was the first line of the template: removed in version > 2.0.0.
+# - "{workerinit}" was the first line of the template: removed in version > 2.0.0.
+# - worker is the identifier of one of the global Worker objects.
 SKELETON = """
 <div id="ide{numide}" {hide}>
 <label for='sqlcommands'>{title}</label>
@@ -32,7 +33,7 @@ SKELETON = """
 <script>
   onElementLoaded("div#ide{numide}").then(() => {{
     const ide = document.querySelector("div#ide{numide}");
-    const sqlide{numide} = new SQLIDE(ide, '{base}', '{init}', '{autoexec}', {worker});
+    new SqlIde(ide, '{base}', '{init}', '{autoexec}', {worker});
 }}).catch(console.error);
 </script>
 """
