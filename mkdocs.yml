@@ -36,6 +36,10 @@ extra_javascript:
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - extras/tablesort.js
 
+watch:
+  - mkdocs_sqlite_console/js
+  - mkdocs_sqlite_console/css
+
 markdown_extensions:
   - admonition
   - pymdownx.details
