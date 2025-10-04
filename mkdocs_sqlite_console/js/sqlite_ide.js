@@ -199,6 +199,7 @@ if(!window.SqlIde){
         });
     }
 
+    // Assign globally, enlarging the scope:
     window.SqlIde = SqlIde
     window.onElementLoaded = onElementLoaded
 }
