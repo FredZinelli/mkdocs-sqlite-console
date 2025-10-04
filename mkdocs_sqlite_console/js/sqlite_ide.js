@@ -50,9 +50,10 @@ if(!window.SqlIde){
             // Open a database
             if (neww) this.worker.postMessage({ action: 'open' });
 
+            let promesse = Promise.resolve()
             if (base !== '/') {
                 const u = new URL(base)
-                fetch(u).then(res => {
+                promesse = fetch(u).then(res => {
                     return res.arrayBuffer()
                 }).then(buf => {
                     try {
@@ -60,18 +61,18 @@ if(!window.SqlIde){
                     } catch (exception) {
                         this.worker.postMessage({ action: 'open', buffer: buf });
                     }
-                    if (run !== '') { this.execute(run, false); }
                 });
             }
-            else if (init !== '') {
-                this.execute(init, true);
+            promesse.then(()=>{
+                if(init !== '') this.execute(init, true);
+            }).then(()=>{
                 if (run !== '') this.execute(run, false);
-            }
+            }).catch(console.error)
 
 
             this.execBtn.addEventListener("click", this.execEditorContents.bind(this), true);
 
-            // Add syntax highlihjting to the textarea
+            // Add syntax highlighting to the textarea
             this.editor = CodeMirror.fromTextArea(this.commandsElm, {
                 mode: 'text/x-mysql',
                 viewportMargin: Infinity,
