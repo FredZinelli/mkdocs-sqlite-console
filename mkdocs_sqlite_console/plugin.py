@@ -33,7 +33,7 @@ SKELETON = """
   onElementLoaded("div#ide{numide}").then(() => {{
     const ide = document.querySelector("div#ide{numide}");
     const sqlide{numide} = new SQLIDE(ide, '{base}', '{init}', '{autoexec}', {worker});
-}}).catch(() => {{}});
+}}).catch(console.error);
 </script>
 """
 
