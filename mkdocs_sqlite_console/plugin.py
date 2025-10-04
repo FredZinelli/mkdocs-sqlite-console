@@ -86,8 +86,8 @@ class Counter:
         autoexec = True if autoexec else ""
         hide = 'class="sqlhidden"' if hide else ""
         titre = titre or "Sql"
-        init = init or ""
         base = base or "/"
+        init = init or ""
         sql = sql or ""
         space = space or None
 
@@ -103,19 +103,6 @@ class Counter:
                 self.spaces[space] += 1
                 worker = space
 
-        if sql != "":
-            ok, sql, _ = self.get_relative_file(page, sql, "Fichier")
-            if ok and autoexec:
-                autoexec = sql.replace("\n", "\\n").replace("'", "\\'")
-
-        if init != "":
-            ok, init, _ = self.get_relative_file(
-                page, init, "-- Fichier d'initialisation"
-            )
-            init = init.replace("\n", "\\n").replace("'", "\\'")
-            if not ok:
-                sql, init = init, ""
-
         if base != "/":
             ok, nope, resolved_path = self.get_relative_file(
                 page, base, "-- Fichier de base"
@@ -130,6 +117,19 @@ class Counter:
                 sql = nope
                 init = ""
                 base = "/"
+
+        if init != "":
+            ok, init, _ = self.get_relative_file(
+                page, init, "-- Fichier d'initialisation"
+            )
+            init = init.replace("\n", "\\n").replace("'", "\\'")
+            if not ok:
+                sql, init = init, ""
+
+        if sql != "":
+            ok, sql, _ = self.get_relative_file(page, sql, "Fichier")
+            if ok and autoexec:
+                autoexec = sql.replace("\n", "\\n").replace("'", "\\'")
 
         ide_html = SKELETON.format(
             numide=self.count,
