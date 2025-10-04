@@ -65,7 +65,6 @@ if(!window.SqlIde){
             }
             promesse.then(()=>{
                 if(init !== '') this.execute(init, true);
-            }).then(()=>{
                 if (run !== '') this.execute(run, false);
             }).catch(console.error)
 
