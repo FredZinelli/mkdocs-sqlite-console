@@ -109,17 +109,24 @@ if(!window.SqlIde){
                     ideThis.error({ message: event.data.error });
                     return;
                 }
-
-                ideThis.tic();
-                ideThis.outputElm.innerHTML = "";
-                for (const element of results) {
-                    ideThis.outputElm.appendChild(ideThis.tableCreate(element.columns, element.values));
-                }
-                if (ideThis.outputElm.childElementCount === 0 && !silent) ideThis.outputElm.innerHTML = "<p>Requête exécutée correctement, pas de résultat à afficher.</p>";
-                ideThis.toc("Displaying results");
+                ideThis.showResults(results, silent)
             }
             this.worker.postMessage({ action: 'exec', sql: commands });
         }
+
+
+        showResults(results, silent){
+            this.tic();
+            this.outputElm.innerHTML = "";
+            for (const element of results) {
+                const table = this.tableCreate(element.columns, element.values)
+                new Tablesort(table)
+                this.outputElm.appendChild(table);
+            }
+            if (this.outputElm.childElementCount === 0 && !silent) this.outputElm.innerHTML = "<p>Requête exécutée correctement, pas de résultat à afficher.</p>";
+            this.toc("Displaying results");
+        }
+
 
         // Create an HTML table
         tableCreate(columns, values) {
