@@ -57,4 +57,52 @@
 
 ### 2.0.0
 
-- Support pour utilisation en tant que macro {{ sqlide(...) }}
+- ADD - Support pour utilisation en tant que macro {{ sqlide(...) }}
+- BREAKING: la syntaxe en cas de présence de mkdocs-macros-plugin change complètement. Cf. la documentation pour les changements à faire
+- FIX - Compatibilité accrue avec PMT (merci @FredZinelli)
+- CHANGE - Passage de SQL.js à la version 1.13.0
+
+### 2.0.1
+
+- FIX - les sqlides dans les admonitions repliées ??? n'étaient pas rendues correctement quand le sqlide était créés via les macros.
+- FIX - les pages mélangeant les deux types de syntaxes (macros + ancienne syntaxes) pouvaient se retrouver avec des IDE non fonctionnels car les worker des espaces communs étaient insérés lors de la première insertions d'un "espace" sql, mais l'ordre des générations de code pouvait ne pas suivre l'ordre de lecture dans la page : toutes les macros d'abord, puis une seconde passe est faite pour les anciennes syntaxes.
+
+- CHANGE - Changement de signature pour la macro, pour pouvoir utiliser qqes arguments positionnels, pour alléger les déclarations.
+- CHANGE - Les macros insèrent maintenant un token dans la page, qui sera remplacé par du code html durant on_page_content (évite les problèmes de conversion md -> html de mkdocs -> FIX 1)
+- CHANGE - Les workerinit sont ajoutés via on_page_context, juste sous les scripts et le css liés au sql du plugin, pour garantir qu'ils seront toujours dispo avant les sqlide de la page (FIX 2).
+- CHANGE - Ajout de quelques commentaires ici et là dans le code, car la logique devient plus complexe...
+
+- DOCS - Arguments de la macro
+- DOCS - Ajout d'explication pour hide et autoexec
+- DOCS - Exemple alternatif (arguments positionnels)
+
+### 2.0.2
+
+- FIX - MAJ automatique du rendu des IDE lors des changements d’onglets mkdocs/material.
+- ADD - support pour les chemins relatifs au fichier markdown en cours (noms de fichiers sql)
+- ADD - Ajouts de la logistique pour tester dans la doc
+- CHANGE - Discover and add css and js files automatically
+- CHANGE - Remove useless LIBS_PATH
+
+### 2.0.3
+
+- CHANGE - Mark as compatible with Python 3.9, update classifiers
+
+### 2.1.0
+
+- DEV - Add /js and /css to mkdocs watch directories
+
+- ADD - Light/dark themes for the docs
+- ADD - Hack to soften the background colors of sqlides in dark mode, without changing anything on CodeMirror side.
+- ADD - Result tables are now sortable (hidden buttons)
+
+- FIX - Unsilence errors during `load(...)` (which was a pain...)
+- FIX - CSS - Gutters kine numbers were going over the top menu header.
+
+- CHANGE - Update SQLIDE class (renaming to SqlIde on the way)
+- CHANGE - make `base` and `init` arguments work together.
+- CHANGE - Reorganize `Counter.build_sql` so that the branches match the execution order in the JS layer.
+
+- DOCS - Update docs with the new specs
+- DOCS - Add dev tests (deactivated by default)
+- DOCS - Suppress one `then`
