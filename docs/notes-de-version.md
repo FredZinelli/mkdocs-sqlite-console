@@ -97,7 +97,7 @@
 - ADD - Result tables are now sortable (hidden buttons)
 
 - FIX - Unsilence errors during `load(...)` (which was a pain...)
-- FIX - CSS - Gutters kine numbers were going over the top menu header.
+- FIX - CSS - Gutters line numbers were going over the top menu header.
 
 - CHANGE - Update SQLIDE class (renaming to SqlIde on the way)
 - CHANGE - make `base` and `init` arguments work together.
