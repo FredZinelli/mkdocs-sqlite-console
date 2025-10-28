@@ -73,7 +73,7 @@ On peut afficher une console/IDE SQLite grâce à la commande `{{ sqlide paramè
     - le titre *doit* être entre guillemets
     - les chemins vers les fichiers sont relatifs à la racine du site, ou bien relatifs au dossier contenant la page markdown en cours (v2.0^+^).
     - les chemins ne peuvent pas contenir d'espace
-    - les options base et init sont mutuellement exclusives ; l'option base est prioritaire.
+    - si les arguments `base` et `init` sont tous les deux utilisés, la base est chargée avant que le code du fichier `init` ne soit exécuté.
 
     Voir le cas des [utilisations en tant que macro](#as-macros), où les syntaxes diffèrent légèrement.<!-- markdownlint-disable-line MD046 -->
 

@@ -8,6 +8,17 @@ theme:
     - navigation.tracking
     - navigation.tabs
     - navigation.tabs.sticky
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
 nav:
     - Home: 'index.md'
@@ -17,6 +28,7 @@ nav:
         - 'Historique des versions': 'notes-de-version.md'
 
     # - Bac à sable: 'essai/bac_a_sable.md'   # testing purpose
+    # - "Base+init": 'essai/base_init.md'     # testing purpose
 
 exclude_docs: |   # Désactiver tout le bloc pour activer dans la nav
     essai/**
@@ -35,6 +47,10 @@ plugins:
 extra_javascript:
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - extras/tablesort.js
+
+watch:
+  - mkdocs_sqlite_console/js
+  - mkdocs_sqlite_console/css
 
 markdown_extensions:
   - admonition
