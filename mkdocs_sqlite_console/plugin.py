@@ -285,8 +285,10 @@ class SQLiteConsole(BasePlugin):
             )
             codemirror_css = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.css"
             codemirror_sql = "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/mode/sql/sql.min.js"
+            tablesort_js   = "https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"
 
             sql_scripts = f"""\
+<script src="{ tablesort_js }"></script>
 <script src="{ codemirror }"></script>
 <script src="{ base_url }/js/sqlite_ide.js"></script>
 <script src="{ codemirror_sql }"></script>

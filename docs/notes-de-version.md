@@ -106,3 +106,7 @@
 - DOCS - Update docs with the new specs
 - DOCS - Add dev tests (deactivated by default)
 - DOCS - Suppress one `then`
+
+### 2.1.1
+
+- FIX - Missing CDN dependency
